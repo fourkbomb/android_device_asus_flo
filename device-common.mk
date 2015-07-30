@@ -128,10 +128,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 PRODUCT_CHARACTERISTICS := tablet,nosdcard
 
-# Filesystem management tools
-PRODUCT_PACKAGES += \
-	setup_fs
-
 PRODUCT_PACKAGES += \
 	libgenlock \
 	hwcomposer.msm8960 \
