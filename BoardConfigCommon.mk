@@ -85,5 +85,8 @@ USE_DEVICE_SPECIFIC_CAMERA := true
 
 BOARD_SEPOLICY_DIRS += device/asus/flo/sepolicy
 
+# CM Hardware
+BOARD_HARDWARE_CLASS += hardware/cyanogen/cmhw
+
 # Use the non-open-source parts, if they're present
 -include vendor/asus/flo/BoardConfigVendor.mk
