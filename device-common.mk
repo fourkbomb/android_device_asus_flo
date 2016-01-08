@@ -165,10 +165,12 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PROPERTY_OVERRIDES += \
 	ro.qualcomm.bt.hci_transport=smd
 
+# Camera
 PRODUCT_PACKAGES += \
 	libmmcamera_interface2 \
 	libmmcamera_interface \
-	libqomx_core
+	libqomx_core \
+	Snap
 
 PRODUCT_PACKAGES += \
 	mm-vdec-omx-test \
