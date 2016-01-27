@@ -13,20 +13,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+$(call inherit-product-if-exists, vendor/asus/flo/flo-vendor.mk)
 
 # This file includes all definitions that apply to ALL msm8960 devices, and
 # are also specific to msm8960 devices
 #
 # Everything in this directory will become public
-
-ifeq ($(TARGET_PREBUILT_KERNEL),)
-LOCAL_KERNEL := device/asus/flo-kernel/kernel
-else
-LOCAL_KERNEL := $(TARGET_PREBUILT_KERNEL)
-endif
-
-PRODUCT_COPY_FILES := \
-	$(LOCAL_KERNEL):kernel
 
 # This device is xhdpi.  However the platform doesn't
 # currently contain all of the bitmaps at xhdpi density so
@@ -34,6 +26,10 @@ PRODUCT_COPY_FILES := \
 # if the xhdpi doesn't exist.
 PRODUCT_AAPT_CONFIG := normal hdpi xhdpi
 PRODUCT_AAPT_PREF_CONFIG := xhdpi
+
+# Boot animation
+TARGET_SCREEN_HEIGHT := 1920
+TARGET_SCREEN_WIDTH := 1200
 
 PRODUCT_PACKAGES := \
     libwpa_client \
@@ -300,6 +296,10 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.nfc.hce.xml:system/etc/permissions/android.hardware.nfc.hce.xml \
     device/asus/flo/nfc/libnfc-brcm.conf:system/etc/libnfc-brcm.conf \
     device/asus/flo/nfc/libnfc-brcm-20791b05.conf:system/etc/libnfc-brcm-20791b05.conf
+
+# http://b/15193147
+# TODO(danalbert): Remove this once stlport is dead and gone.
+PRODUCT_PACKAGES +=  libstlport
 
 PRODUCT_LOCALES := en_US es_US de_DE zh_CN
 
