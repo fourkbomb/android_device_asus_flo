@@ -15,16 +15,8 @@
 #
 $(call inherit-product-if-exists, vendor/asus/flo/flo-vendor.mk)
 
-# This file includes all definitions that apply to ALL msm8960 devices, and
-# are also specific to msm8960 devices
-#
-# Everything in this directory will become public
-
-# This device is xhdpi.  However the platform doesn't
-# currently contain all of the bitmaps at xhdpi density so
-# we do this little trick to fall back to the hdpi version
-# if the xhdpi doesn't exist.
-PRODUCT_AAPT_CONFIG := normal hdpi xhdpi
+# Screen density
+PRODUCT_AAPT_CONFIG := normal
 PRODUCT_AAPT_PREF_CONFIG := xhdpi
 
 # Boot animation
@@ -32,23 +24,17 @@ TARGET_SCREEN_HEIGHT := 1920
 TARGET_SCREEN_WIDTH := 1200
 
 PRODUCT_PACKAGES := \
-    libwpa_client \
-    hostapd \
-    dhcpcd.conf \
-    wpa_supplicant \
-    wpa_supplicant.conf
+	libwpa_client \
+	hostapd \
+	dhcpcd.conf \
+	wpa_supplicant \
+	wpa_supplicant.conf
 
 PRODUCT_PACKAGES += \
 	lights.msm8960
 
 PRODUCT_PACKAGES += \
-    charger_res_images
-
-# Live Wallpapers
-PRODUCT_PACKAGES += \
-        LiveWallpapers \
-        LiveWallpapersPicker \
-        librs_jni
+	charger_res_images
 
 PRODUCT_COPY_FILES += \
 	device/asus/flo/WCNSS_cfg.dat:system/vendor/firmware/wlan/prima/WCNSS_cfg.dat \
@@ -117,13 +103,8 @@ PRODUCT_COPY_FILES += \
 	frameworks/native/data/etc/android.software.midi.xml:system/etc/permissions/android.software.midi.xml
 
 # Modem debugger
-ifneq (,$(filter userdebug eng, $(TARGET_BUILD_VARIANT)))
 PRODUCT_COPY_FILES += \
-    device/asus/flo/init.flo.diag.rc.userdebug:root/init.flo.diag.rc
-else
-PRODUCT_COPY_FILES += \
-    device/asus/flo/init.flo.diag.rc.user:root/init.flo.diag.rc
-endif
+	device/asus/flo/init.flo.diag.rc:root/init.flo.diag.rc
 
 PRODUCT_PROPERTY_OVERRIDES += \
 	ro.opengles.version=196608
@@ -141,30 +122,18 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
 	camera.disable_zsl_mode=1
 
-# Kickstart
-PRODUCT_PACKAGES += \
-	qcks \
-	ks \
-	efsks
-
 #Enable MDP composition by default
 PRODUCT_PROPERTY_OVERRIDES += \
 	persist.hwc.mdpcomp.enable=true
 
 PRODUCT_CHARACTERISTICS := tablet,nosdcard
 
-PRODUCT_PACKAGES += \
-	librs_jni \
-	com.android.future.usb.accessory
-
 # Filesystem management tools
 PRODUCT_PACKAGES += \
-	e2fsck \
 	setup_fs
 
 PRODUCT_PACKAGES += \
 	libgenlock \
-	liboverlay \
 	hwcomposer.msm8960 \
 	gralloc.msm8960 \
 	copybit.msm8960 \
@@ -183,6 +152,7 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     libqcomvoiceprocessing \
     libqcomvoiceprocessingdescriptors
+
 PRODUCT_COPY_FILES += \
     device/asus/flo/audio_effects.conf:system/vendor/etc/audio_effects.conf
 
@@ -192,9 +162,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 PRODUCT_PACKAGES += \
 	hci_qcomm_init
-
-PRODUCT_PACKAGES += \
-	power.msm8960
 
 PRODUCT_COPY_FILES += \
 	device/asus/flo/init.flo.bt.sh:system/bin/init.flo.bt.sh
@@ -219,17 +186,17 @@ PRODUCT_PACKAGES += \
 
 # GPS
 PRODUCT_PACKAGES += \
-        libloc_adapter \
-        libloc_eng \
-        libloc_api_v02 \
-        libloc_ds_api \
-        libloc_core \
-        libizat_core \
-        libgeofence \
-        libgps.utils \
-        gps.conf \
-        gps.msm8960 \
-        flp.msm8960
+	libloc_adapter \
+	libloc_eng \
+	libloc_api_v02 \
+	libloc_ds_api \
+	libloc_core \
+	libizat_core \
+	libgeofence \
+	libgps.utils \
+	gps.conf \
+	gps.msm8960 \
+	flp.msm8960
 
 PRODUCT_PACKAGES += \
 	bdAddrLoader \
@@ -253,11 +220,11 @@ PRODUCT_PROPERTY_OVERRIDES += \
 	media.aac_51_output_enabled=true
 
 PRODUCT_PROPERTY_OVERRIDES += \
-        debug.egl.recordable.rgba8888=1
+	debug.egl.recordable.rgba8888=1
 
 PRODUCT_PROPERTY_OVERRIDES += \
-        ro.qc.sensors.wl_dis=true \
-        ro.qualcomm.sensors.smd=true
+	ro.qc.sensors.wl_dis=true \
+	ro.qualcomm.sensors.smd=true
 
 PRODUCT_PROPERTY_OVERRIDES += \
 	ro.qualcomm.cabl=1 \
@@ -279,17 +246,17 @@ PRODUCT_PROPERTY_OVERRIDES += \
 	ro.hwui.text_large_cache_height=1024
 
 PRODUCT_PROPERTY_OVERRIDES += \
-    dalvik.vm.dex2oat-swap=false
+	dalvik.vm.dex2oat-swap=false
 
 PRODUCT_PACKAGES += \
-    power.flo
+	power.flo
 
 # NFC packages
 PRODUCT_PACKAGES += \
-    libnfc-nci \
-    libnfc_nci_jni \
-    NfcNci \
-    Tag
+	libnfc-nci \
+	libnfc_nci_jni \
+	NfcNci \
+	Tag
 
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.nfc.xml:system/etc/permissions/android.hardware.nfc.xml \
