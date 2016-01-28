@@ -37,8 +37,6 @@
 
 #define STATE_ON "state=1"
 #define STATE_OFF "state=0"
-#define STATE_HDR_ON "state=2"
-#define STATE_HDR_OFF "state=3"
 
 #define MAX_LENGTH         50
 #define BOOST_SOCKET       "/dev/socket/pb"
@@ -47,9 +45,9 @@
 #define TOTAL_CPUS 4
 #define RETRY_TIME_CHANGING_FREQ 20
 #define SLEEP_USEC_BETWN_RETRY 200
-#define LOW_POWER_MAX_FREQ "1026000"
-#define LOW_POWER_MIN_FREQ "384000"
-#define NORMAL_MAX_FREQ "1512000"
+#define LOW_POWER_MAX_FREQ 1026000
+#define LOW_POWER_MIN_FREQ 384000
+#define NORMAL_MAX_FREQ 1512000
 #define UEVENT_STRING "online@/devices/system/cpu/"
 
 static int client_sockfd;
@@ -276,23 +274,17 @@ static void process_video_encode_hint(void *metadata)
         return;
     }
 
-    if (metadata) {
-        if (!strncmp(metadata, STATE_ON, sizeof(STATE_ON))) {
-            /* Video encode started */
-            sync_thread(1);
-            enc_boost(1);
-        } else if (!strncmp(metadata, STATE_OFF, sizeof(STATE_OFF))) {
-            /* Video encode stopped */
-            sync_thread(0);
-            enc_boost(0);
-        }  else if (!strncmp(metadata, STATE_HDR_ON, sizeof(STATE_HDR_ON))) {
-            /* HDR usecase started */
-        } else if (!strncmp(metadata, STATE_HDR_OFF, sizeof(STATE_HDR_OFF))) {
-            /* HDR usecase stopped */
-        } else
-            return;
-    } else {
+    if (!metadata)
         return;
+
+    if (!strncmp(metadata, STATE_ON, sizeof(STATE_ON))) {
+        /* Video encode started */
+        sync_thread(1);
+        enc_boost(1);
+    } else if (!strncmp(metadata, STATE_OFF, sizeof(STATE_OFF))) {
+        /* Video encode stopped */
+        sync_thread(0);
+        enc_boost(0);
     }
 }
 
@@ -320,16 +312,12 @@ static void touch_boost()
 
 static void power_set_interactive(__attribute__((unused)) struct power_module *module, int on)
 {
-    if (last_state == -1) {
-        last_state = on;
-    } else {
-        if (last_state == on)
-            return;
-        else
-            last_state = on;
-    }
+    if (last_state == on)
+        return;
 
-    ALOGV("%s %s", __func__, (on ? "ON" : "OFF"));
+    last_state = on;
+
+    ALOGD("%s %s", __func__, (on ? "ON" : "OFF"));
     if (on) {
         sync_thread(0);
         touch_boost();
@@ -345,42 +333,38 @@ static void power_hint( __attribute__((unused)) struct power_module *module,
 
     switch (hint) {
         case POWER_HINT_INTERACTION:
-            ALOGV("POWER_HINT_INTERACTION");
+            ALOGD("POWER_HINT_INTERACTION");
             touch_boost();
             break;
-#if 0
-        case POWER_HINT_VSYNC:
-            ALOGV("POWER_HINT_VSYNC %s", (data ? "ON" : "OFF"));
-            break;
-#endif
+
         case POWER_HINT_VIDEO_ENCODE:
             process_video_encode_hint(data);
             break;
 
         case POWER_HINT_LOW_POWER:
-             pthread_mutex_lock(&low_power_mode_lock);
-             if (data) {
-                 low_power_mode = true;
-                 for (cpu = 0; cpu < TOTAL_CPUS; cpu++) {
-                     sysfs_write(cpu_path_min[cpu], LOW_POWER_MIN_FREQ);
-                     ret = sysfs_write(cpu_path_max[cpu], LOW_POWER_MAX_FREQ);
-                     if (!ret) {
-                         freq_set[cpu] = true;
-                     }
-                 }
-             } else {
-                 low_power_mode = false;
-                 for (cpu = 0; cpu < TOTAL_CPUS; cpu++) {
-                     ret = sysfs_write(cpu_path_max[cpu], NORMAL_MAX_FREQ);
-                     if (!ret) {
-                         freq_set[cpu] = false;
-                     }
-                 }
-             }
-             pthread_mutex_unlock(&low_power_mode_lock);
-             break;
+            pthread_mutex_lock(&low_power_mode_lock);
+            if (data) {
+                low_power_mode = true;
+                for (cpu = 0; cpu < TOTAL_CPUS; cpu++) {
+                    sysfs_write(cpu_path_min[cpu], LOW_POWER_MIN_FREQ);
+                    ret = sysfs_write(cpu_path_max[cpu], LOW_POWER_MAX_FREQ);
+                    if (!ret) {
+                        freq_set[cpu] = true;
+                    }
+                }
+            } else {
+                low_power_mode = false;
+                for (cpu = 0; cpu < TOTAL_CPUS; cpu++) {
+                    ret = sysfs_write(cpu_path_max[cpu], NORMAL_MAX_FREQ);
+                    if (!ret) {
+                        freq_set[cpu] = false;
+                    }
+                }
+            }
+            pthread_mutex_unlock(&low_power_mode_lock);
+            break;
         default:
-             break;
+            break;
     }
 }
 
