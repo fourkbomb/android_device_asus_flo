@@ -14,14 +14,22 @@
 # limitations under the License.
 #
 
+DEVICE_PATH := device/asus/flo
+
+-include $(DEVICE_PATH)/BoardConfigCommon.mk
+
+# Assertions
+TARGET_BOARD_INFO_FILE := $(DEVICE_PATH)/board-info.txt
+
+# Bootloader
 TARGET_BOOTLOADER_BOARD_NAME := flo
 TARGET_BOOTLOADER_NAME := flo
-TARGET_BOARD_INFO_FILE := device/asus/flo/board-info.txt
 
+# Dump state
 BOARD_HAL_STATIC_LIBRARIES := libdumpstate.flo
 
-TARGET_RELEASETOOLS_EXTENSIONS := device/asus/flo
+# Recovery
+TARGET_RECOVERY_FSTAB = $(DEVICE_PATH)/fstab.flo
 
-TARGET_RECOVERY_FSTAB = device/asus/flo/fstab.flo
-
-include device/asus/flo/BoardConfigCommon.mk
+# Releasetools
+TARGET_RELEASETOOLS_EXTENSIONS := $(DEVICE_PATH)

@@ -19,21 +19,25 @@
 #
 # Everything in this directory will become public
 
-PRODUCT_PROPERTY_OVERRIDES := \
-    ro.carrier=wifi-only
+# Overlay
+DEVICE_PACKAGE_OVERLAYS := $(LOCAL_PATH)/overlay
 
-PRODUCT_COPY_FILES := \
-    device/asus/flo/fstab.flo:root/fstab.flo \
-    device/asus/flo/init.flo.rc:root/init.flo.rc
-
+# Camera
 PRODUCT_PACKAGES += \
     camera.flo
+
+# Carrier
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.carrier=wifi-only
 
 # NFC
 PRODUCT_PACKAGES += \
     nfc_nci.bcm2079x.default
 
-# the actual meat of the device-specific product definition
-$(call inherit-product, device/asus/flo/device-common.mk)
+# Ramdisk
+PRODUCT_COPY_FILES := \
+    $(LOCAL_PATH)/fstab.flo:root/fstab.flo \
+    $(LOCAL_PATH)/init.flo.rc:root/init.flo.rc
 
-DEVICE_PACKAGE_OVERLAYS := device/asus/flo/overlay
+# Inherit from flo common
+$(call inherit-product, $(LOCAL_PATH)/device-common.mk)
