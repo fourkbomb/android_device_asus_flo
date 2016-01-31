@@ -50,11 +50,10 @@ $(call inherit-product, frameworks/native/build/tablet-7in-xhdpi-2048-dalvik-hea
 
 # Audio
 PRODUCT_PACKAGES += \
-    alsa.msm8960 \
-    audio.primary.msm8960 \
     audio.a2dp.default \
-    audio.usb.default \
+    audio.primary.msm8960 \
     audio.r_submix.default \
+    audio.usb.default \
     libaudio-resampler
 
 # Audio configuration
@@ -143,14 +142,10 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/media_codecs_performance.xml:system/etc/media_codecs_performance.xml
 
 PRODUCT_PACKAGES += \
-    mm-vdec-omx-test \
-    mm-venc-omx-test720p \
-    libdivxdrmdecrypt \
     libOmxVdec \
     libOmxVenc \
     libOmxCore \
-    libstagefrighthw \
-    libc2dcolorconvert
+    libstagefrighthw
 
 # Misc
 PRODUCT_PACKAGES += \
