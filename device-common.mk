@@ -15,7 +15,6 @@
 #
 
 $(call inherit-product-if-exists, vendor/asus/flo/flo-vendor.mk)
-$(call inherit-product-if-exists, hardware/qcom/msm8960/msm8960.mk)
 
 # Product
 PRODUCT_CHARACTERISTICS := tablet,nosdcard
