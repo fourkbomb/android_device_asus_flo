@@ -14,7 +14,7 @@
 # limitations under the License.
 #
 
-COMMON_PATH := device/asus/flo
+COMMON_PATH := device/asus/flo_caf
 
 # Platform
 TARGET_BOARD_PLATFORM := msm8960
@@ -98,4 +98,4 @@ WIFI_DRIVER_FW_PATH_STA := "sta"
 WPA_SUPPLICANT_VERSION := VER_0_8_X
 
 # Use the non-open-source parts, if they're present
--include vendor/asus/flo/BoardConfigVendor.mk
+-include vendor/asus/flo_caf/BoardConfigVendor.mk

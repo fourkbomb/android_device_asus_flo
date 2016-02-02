@@ -14,7 +14,7 @@
 # limitations under the License.
 #
 
-DEVICE_PATH := device/asus/flo
+DEVICE_PATH := device/asus/flo_caf
 
 -include $(DEVICE_PATH)/BoardConfigCommon.mk
 

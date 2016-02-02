@@ -3,7 +3,7 @@
 set -e
 
 VENDOR=asus
-DEVICE=flo
+DEVICE=flo_caf
 
 if [ $# -eq 0 ]; then
   SRC=adb

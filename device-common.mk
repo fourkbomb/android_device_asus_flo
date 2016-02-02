@@ -14,7 +14,7 @@
 # limitations under the License.
 #
 
-$(call inherit-product-if-exists, vendor/asus/flo/flo-vendor.mk)
+$(call inherit-product-if-exists, vendor/asus/flo_caf/flo-vendor.mk)
 
 # Product
 PRODUCT_CHARACTERISTICS := tablet,nosdcard

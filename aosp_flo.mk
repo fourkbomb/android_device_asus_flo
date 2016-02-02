@@ -21,11 +21,11 @@
 # Inherit from the common Open Source product configuration
 $(call inherit-product, $(SRC_TARGET_DIR)/product/aosp_base.mk)
 
-PRODUCT_NAME := aosp_flo
-PRODUCT_DEVICE := flo
+PRODUCT_NAME := aosp_flo_caf
+PRODUCT_DEVICE := flo_caf
 PRODUCT_BRAND := Android
 PRODUCT_MODEL := AOSP on Flo
 PRODUCT_MANUFACTURER := ASUS
 
 # Inherit from hardware-specific part of the product configuration
-$(call inherit-product, device/asus/flo/device.mk)
+$(call inherit-product, device/asus/flo_caf/device.mk)

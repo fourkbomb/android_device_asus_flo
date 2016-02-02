@@ -39,5 +39,5 @@ PRODUCT_COPY_FILES := \
     $(LOCAL_PATH)/fstab.flo:root/fstab.flo \
     $(LOCAL_PATH)/init.flo.rc:root/init.flo.rc
 
-# Inherit from flo common
+# Inherit from flo_caf common
 $(call inherit-product, $(LOCAL_PATH)/device-common.mk)

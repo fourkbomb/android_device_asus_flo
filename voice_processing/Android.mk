@@ -1,4 +1,4 @@
-ifneq ($(filter flo deb,$(TARGET_DEVICE)),)
+ifneq ($(filter flo_caf deb_caf,$(TARGET_DEVICE)),)
 
 LOCAL_PATH:= $(call my-dir)
 

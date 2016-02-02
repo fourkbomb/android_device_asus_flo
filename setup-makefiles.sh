@@ -1,7 +1,7 @@
 #!/bin/sh
 
 VENDOR=asus
-DEVICE=flo
+DEVICE=flo_caf
 OUTDIR=vendor/$VENDOR/$DEVICE
 MAKEFILE=../../../$OUTDIR/$DEVICE-vendor-blobs.mk
 

@@ -1,1 +1,1 @@
-require board=msm8960|flo
+require board=msm8960|flo_caf
