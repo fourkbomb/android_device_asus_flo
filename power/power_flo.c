@@ -271,7 +271,7 @@ static void power_hint( __attribute__((unused)) struct power_module *module,
     if (hint == POWER_HINT_SET_PROFILE) {
         pthread_mutex_lock(&profile_lock);
         set_power_profile(*(int32_t *)data);
-        pthread_mutex_lock(&profile_lock);
+        pthread_mutex_unlock(&profile_lock);
         return;
     }
 
