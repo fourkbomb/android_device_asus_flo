@@ -28,7 +28,6 @@ TARGET_SCREEN_WIDTH := 1200
 
 PRODUCT_PACKAGES += \
     hostapd \
-    dhcpcd.conf \
     wpa_supplicant \
     wpa_supplicant.conf
 
