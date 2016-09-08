@@ -117,6 +117,8 @@ HAVE_ADRENO_SOURCE:= false
 
 BOARD_SEPOLICY_DIRS += device/asus/flo/sepolicy
 
+TARGET_RECOVERY_DENSITY := hdpi
+
 # Enable Minikin text layout engine (will be the default soon)
 USE_MINIKIN := true
 
